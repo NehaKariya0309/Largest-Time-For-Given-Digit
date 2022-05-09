@@ -1,0 +1,38 @@
+class Solution {
+public:
+    bool isvalid(string s){
+        if(stoi(s.substr(0,2))>=0 && stoi(s.substr(0,2))<24 && stoi(s.substr(2,4))>=0 && stoi(s.substr(2,4))<60 ) return true;
+        
+        else return false;
+    
+    }
+    void solve(vector<int>arr,vector<string>& ans,int i){
+        if(i==4){ 
+             string time="";
+        for(int a=0;a<4;a++){
+           time.push_back(arr[a]+48);
+            
+        }
+            ans.push_back(time);
+                 
+                 return;}
+        for(int j=0;j<4;j++){
+            swap(arr[i],arr[j]);
+            solve(arr,ans,i+1);
+            swap(arr[i],arr[j]);
+        }
+    }
+    string largestTimeFromDigits(vector<int>& arr) {
+        vector<string>ans;
+        
+        solve(arr,ans,0);
+        string mx="";
+        for(int i=0;i<ans.size();i++){
+if(isvalid(ans[i])) mx=max(mx,ans[i]);
+        }
+        if(mx.size()!=0){
+           mx.insert(2,1,':');
+        }
+        return mx;
+    }
+};
